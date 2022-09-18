@@ -27,7 +27,18 @@ const Dashboard = () => {
   }
 
   function handleDelete(bookId) {
-    console.log("book id", bookId);
+    if (window.confirm("Are You Sure ?")) {
+      ApiClient.delete(`/books/${bookId}`)
+        .then(() => {
+          let booksFiltered = books.data.filter((book) => book.id !== bookId);
+          // window.alert("Book has been deleted successfully");
+          setBooks((prev) => ({ ...prev, data: booksFiltered }));
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    } else {
+    }
   }
 
   return (
@@ -108,7 +119,7 @@ const Dashboard = () => {
 
           {!books?.data.length && (
             <tr>
-              <td colSpan={4}>No users found.</td>
+              <td colSpan={9}>No books found.</td>
             </tr>
           )}
         </tbody>

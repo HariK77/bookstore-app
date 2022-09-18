@@ -48,7 +48,7 @@ const EditBook = () => {
     onSubmit: function (values) {
       setIsBtnDisabled(true);
       setErrorMsg("");
-      ApiClient.create("books", values)
+      ApiClient.update(`books/${bookId}`, values)
         .then((response) => {
           setIsBtnDisabled(false);
           console.log("result", response);
@@ -71,7 +71,7 @@ const EditBook = () => {
 
   return (
     <div className="container">
-      <h1>Add Book</h1>
+      <h1>Edit Book</h1>
       <hr />
       <section className="section">
         <form className="row">
@@ -232,7 +232,7 @@ const EditBook = () => {
               className="btn btn-primary"
               disabled={isBtnDisabled}
             >
-              Submit
+              Update
             </button>
           </div>
         </form>
