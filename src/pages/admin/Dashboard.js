@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
+import debounce from "lodash.debounce";
 import { Link } from "react-router-dom";
 import ApiClient from "../../utilities/ApiClient";
 
@@ -21,9 +22,15 @@ const Dashboard = () => {
     setActivePage(pageNumber);
   }
 
+  const delaySearch = useCallback(debounce(handleSearch, 500), []);
+
   function handleSearch(searchTerm) {
     setActivePage(1);
     setSearchTerm(searchTerm);
+  }
+
+  function handleSearchChange(event) {
+    delaySearch(event.target.value);
   }
 
   function handleDelete(bookId) {
@@ -53,9 +60,7 @@ const Dashboard = () => {
               type="text"
               className="form-control"
               id="search"
-              onChange={(event) => {
-                handleSearch(event.target.value);
-              }}
+              onChange={handleSearchChange}
               placeholder="Search for title, author, publication date, isbn or genre"
             />
           </div>
