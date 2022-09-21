@@ -3,8 +3,9 @@ import axios from "axios";
 // default
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_API_URL + "/api";
 // content type
-axios.defaults.headers.post["Content-Type"] = "application/json";
-
+// axios.defaults.headers.post["Content-Type"] = "application/json";
+axios.defaults.headers.common["Content-Type"] = "application/json";
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("token");
 // intercepting to capture errors
